@@ -3,4 +3,3 @@ database
 settings.py
 *.swp
 *.swo
-wordviewer/fixtures
