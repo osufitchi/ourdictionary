@@ -79,6 +79,28 @@ def site_preferences(request):
     return {'preferences': SitePreferences.objects.get(id=1),}
 
 
+class AccountForm(forms.Form):
+    first_name = forms.CharField()
+    last_name = forms.CharField()
+
+
+def edit_account(request):
+    if request.method == 'POST':
+        form = AccountForm(request.POST)
+        if form.is_valid():
+            import pdb; pdb.set_trace()
+            return HttpResponseRedirect('/words/')
+    else:
+        user_data = {
+            'first_name': request.user.first_name,
+            'last_name': request.user.last_name,
+            }
+        form = AccountForm(user_data)
+    context = Context({'title': 'Edit Account Settings', 'form': form})
+    return render_to_response('account_form.html', context)
+
+
+
 def register(request):
     if request.method == 'POST':
         if settings.REGISTRATION_TOKEN:
