@@ -88,7 +88,9 @@ def edit_account(request):
     if request.method == 'POST':
         form = AccountForm(request.POST)
         if form.is_valid():
-            import pdb; pdb.set_trace()
+            request.user.first_name = form.cleaned_data['first_name']
+            request.user.last_name = form.cleaned_data['last_name']
+            request.user.save()
             return HttpResponseRedirect('/words/')
     else:
         user_data = {
@@ -96,8 +98,9 @@ def edit_account(request):
             'last_name': request.user.last_name,
             }
         form = AccountForm(user_data)
-    context = Context({'title': 'Edit Account Settings', 'form': form})
-    return render_to_response('account_form.html', context)
+    context_dict = {'title': 'Edit Account Settings', 'form': form}
+    return render_to_response('wordviewer/account_form.html', context_dict,
+         context_instance=RequestContext(request))
 
 
 
