@@ -7,6 +7,7 @@ from wordviewer.views import (register, WordEntryCreationView,
     WordEntryUpdateView, SitePreferencesUpdateView, AccountForm)
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import login, logout
+from django.contrib.auth.models import User
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -25,6 +26,7 @@ urlpatterns = patterns('',
     url(r'^sitepreferences/$', SitePreferencesUpdateView.as_view(success_url="/words/")),
     url(r'^administration/$', TemplateView.as_view(template_name='wordviewer/admin/administration.html')),
     url(r'^account/$', 'wordviewer.views.edit_account'),
+    url(r'^studentstats/$', ListView.as_view(model=User, template_name='wordviewer/admin/user_list.html', queryset=User.objects.order_by('last_name', 'first_name'))),
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Student Statistics</h1>
+  <ul id="students">
+    {% for student in object_list %}
+    {% if not student.is_staff %}
+      <li>
+        <a href="/students/{{student.id}}/">{{student}}</a>
+      </li>
+    {% endif %}
+    {% endfor %}
+  </ul>
+{% endblock %}
