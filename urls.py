@@ -27,6 +27,7 @@ urlpatterns = patterns('',
     url(r'^administration/$', TemplateView.as_view(template_name='wordviewer/admin/administration.html')),
     url(r'^account/$', 'wordviewer.views.edit_account'),
     url(r'^studentstats/$', ListView.as_view(model=User, template_name='wordviewer/admin/user_list.html', queryset=User.objects.order_by('last_name', 'first_name'))),
+    url(r'^students/(?P<pk>\d+)/$', DetailView.as_view(model=User, template_name='wordviewer/admin/user_detail.html',)), 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
