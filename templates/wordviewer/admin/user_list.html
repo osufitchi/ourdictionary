@@ -5,7 +5,7 @@
     {% for student in object_list %}
     {% if not student.is_staff %}
       <li>
-        <a href="/students/{{student.id}}/">{{student}}</a>
+        <a href="/students/{{student.id}}/">{{student.last_name}}, {{student.first_name}}</a>
       </li>
     {% endif %}
     {% endfor %}
