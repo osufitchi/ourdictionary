@@ -17,7 +17,7 @@
 <nav>
 <a href="/words/">Home</a>
 {% if perms.wordviewer.change_sitepreferences %}
-<a href="/sitepreferences/">Preferences</a>
+<a href="/administration/">Administration</a>
 {% endif %}
 {% block topbar %}
 {% if user.is_authenticated %}

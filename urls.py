@@ -1,6 +1,7 @@
 from django.conf.urls.defaults import patterns, include, url
 from django.conf import settings
-from django.views.generic import CreateView, ListView, DetailView, RedirectView
+from django.views.generic import (CreateView, ListView, DetailView,
+    RedirectView, TemplateView)
 from wordviewer.models import WordEntry
 from wordviewer.views import (register, WordEntryCreationView,
     WordEntryUpdateView, SitePreferencesUpdateView, AccountForm)
@@ -22,6 +23,7 @@ urlpatterns = patterns('',
     url(r'^login/$', login),
     url(r'^logout/$', logout, {'next_page': '/'}),
     url(r'^sitepreferences/$', SitePreferencesUpdateView.as_view(success_url="/words/")),
+    url(r'^administration/$', TemplateView.as_view(template_name='wordviewer/admin/administration.html')),
     url(r'^account/$', 'wordviewer.views.edit_account'),
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
