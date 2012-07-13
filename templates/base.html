@@ -21,14 +21,17 @@
 {% endif %}
 {% block topbar %}
 {% if user.is_authenticated %}
+<a href="/account/">Account Settings</a>
 <a href="/logout/">Logout</a>
-<span>{{user.username}}</span>
 {% else %}
 <a href="/login/">Login</a>
 {% endif %}
 {% endblock %}
 </nav>
-<h1>{{ preferences.name }}</h1>
+<h1>
+  <span id="username">{{user.username}}</span>
+  {{ preferences.name }}
+</h1>
 {% block letter-nav %}{% endblock %}
 </header>
 {% block heading %}{% endblock %}

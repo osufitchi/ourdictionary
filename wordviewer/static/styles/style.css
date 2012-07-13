@@ -19,6 +19,12 @@ header h1 {
     background-color: #9932CC;
     color: #FFF;
 }
+
+#username {
+    padding-right: 20px;
+    color: black;
+}
+
 header nav {
     padding: 20px;
     float: left;
