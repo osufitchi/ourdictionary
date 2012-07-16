@@ -4,7 +4,7 @@ from django.views.generic import (CreateView, ListView, DetailView,
     RedirectView, TemplateView)
 from wordviewer.models import WordEntry
 from wordviewer.views import (register, WordEntryCreationView,
-    WordEntryUpdateView, SitePreferencesUpdateView, AccountForm)
+    WordEntryUpdateView, SitePreferencesUpdateView, AccountForm, UserDetailView)
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import login, logout
 from django.contrib.auth.models import User
@@ -28,7 +28,7 @@ urlpatterns = patterns('',
     url(r'^account/$', 'wordviewer.views.edit_account'),
     url(r'^studentstats/$', ListView.as_view(model=User, template_name='wordviewer/admin/user_list.html', queryset=User.objects.order_by('last_name', 'first_name'))),
     url(r'^students/(?P<pk>\d+)/$',
-        DetailView.as_view(model=User,
+        UserDetailView.as_view(model=User,
             template_name='wordviewer/admin/user_detail.html')
         ), 
     # Uncomment the admin/doc line below to enable admin documentation:

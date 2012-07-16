@@ -1,10 +1,27 @@
 {% extends "base.html" %}
 {% block content %}
   <h2>Word Statistics</h2>
+  <h3>Most Recent User Activity:</h3>
+  <ul id="student-words-modified"> 
+    {% for word in recent_activity %}
+      <li>
+        <a href="/words/{{word.id}}">{{word}}</a> on  {{word.date_modified}}
+      </li>
+    {% endfor %}
+  </ul>
+  <h3>Words Created by User: {{object.entry_creators.all.count}}</h3>
   <ul id="student-words-created">
     {% for word in object.entry_creators.all %}
       <li>
-        <a href="/words/{{word.id}}/">{{word}}</a>
+        <a href="/words/{{word.id}}/">{{word}}</a> on  {{word.date_created}}
+      </li>
+    {% endfor %}
+  </ul>
+  <h3>Words Modified by User: {{object.entry_modifiers.all.count}}</h3>
+  <ul id="student-words-modified">
+    {% for word in object.entry_modifiers.all %}
+      <li>
+        <a href="/words/{{word.id}}/">{{word}}</a> on  {{word.date_modified}}
       </li>
     {% endfor %}
   </ul>

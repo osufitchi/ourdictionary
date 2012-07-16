@@ -6,9 +6,10 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required, permission_required
 from django.utils.decorators import method_decorator
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, DetailView
 from wordviewer.models import WordEntry, SitePreferences
 from django.core.exceptions import ValidationError
+from django.contrib.auth.models import User
 
 class WordEntryForm(forms.ModelForm):
     class Meta:
@@ -103,7 +104,18 @@ def edit_account(request):
          context_instance=RequestContext(request))
 
 
-
+class UserDetailView(DetailView):
+    model = User
+   
+    def get_context_data(self, **kwargs):
+        context = super(UserDetailView, self).get_context_data(**kwargs)
+        user = super(UserDetailView, self).get_object()
+        user_created_list=user.entry_creators.order_by('-date_created')
+        user_modified_list=user.entry_modifiers.order_by('-date_modified')
+        combined_list = user_created_list | user_modified_list
+        context['recent_activity'] = combined_list
+        return context
+    
 def register(request):
     if request.method == 'POST':
         if settings.REGISTRATION_TOKEN:
