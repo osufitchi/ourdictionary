@@ -58,8 +58,9 @@ class RichUserCreationForm(UserCreationForm):
 class TokenRegistrationForm(RichUserCreationForm):
     token = forms.CharField(max_length=20, label="Registration Token")
     def clean_token(self):
+        preferences = SitePreferences.objects.get(id=1)
         data = self.cleaned_data["token"]
-        if data != settings.REGISTRATION_TOKEN:
+        if data != preferences.token:
             raise forms.ValidationError("Incorrect Registration Token!")
         return data
 
@@ -117,8 +118,9 @@ class UserDetailView(DetailView):
         return context
     
 def register(request):
+    preferences = SitePreferences.objects.get(id=1)
     if request.method == 'POST':
-        if settings.REGISTRATION_TOKEN:
+        if preferences.token:
            form = TokenRegistrationForm(request.POST)
         else:
            form = RichUserCreationForm(request.POST)
@@ -126,7 +128,7 @@ def register(request):
             new_user = form.save()
             return HttpResponseRedirect("/login/")
     else:
-        if settings.REGISTRATION_TOKEN:
+        if preferences.token:
             form = TokenRegistrationForm()
         else:
             form = RichUserCreationForm()

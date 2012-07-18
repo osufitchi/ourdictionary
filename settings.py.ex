@@ -152,6 +152,3 @@ LOGGING = {
     }
 }
 
-# If set, users cannot register unless they enter the registration string
-# specified.
-REGISTRATION_TOKEN = ""
