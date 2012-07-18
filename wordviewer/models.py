@@ -47,6 +47,7 @@ class WordEntry(models.Model):
 
 class SitePreferences(models.Model):
       name = models.CharField(blank  = True , max_length=30 )
+      token = models.CharField(max_length=20, blank = True)
       logo = StdImageField(blank = True, upload_to="logophoto/",
           size=(1024,768), thumbnail_size=(300,225))
 
